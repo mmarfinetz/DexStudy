@@ -1,0 +1,24 @@
+# Protocol configuration for DEX valuation study
+# Fill in each protocol with relevant addresses and identifiers
+protocols:
+  - name: Uniswap
+    token_address: "0x..."
+    snapshot_space: "uniswap"
+    chains: [ethereum, polygon]
+  - name: SushiSwap
+    token_address: "0x..."
+    snapshot_space: "sushiswap"
+    chains: [ethereum, arbitrum, polygon]
+  - name: Curve
+    token_address: "0x..."
+    snapshot_space: "curve"
+    chains: [ethereum]
+  - name: Balancer
+    token_address: "0x..."
+    snapshot_space: "balancer"
+    chains: [ethereum]
+  - name: PancakeSwap
+    token_address: "0x..."
+    snapshot_space: "pancakeswap"
+    chains: [bsc]
+  # Add additional protocols as needed
