@@ -1,0 +1,51 @@
+/Users/mitch/Downloads/dex-valuation-study/src/data_collection.py:357: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  panel = pd.concat(frames, ignore_index=True)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:109: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df['tvl_growth_1d'] = df.groupby('protocol')['tvl'].pct_change(periods=1)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:110: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df['tvl_growth_3d'] = df.groupby('protocol')['tvl'].pct_change(periods=3)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:111: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df['tvl_growth_7d'] = df.groupby('protocol')['tvl'].pct_change(periods=7)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:112: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df['tvl_growth_30d'] = df.groupby('protocol')['tvl'].pct_change(periods=30)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:118: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df.groupby('protocol')['market_cap_circulating'].pct_change(periods=7)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:121: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df.groupby('protocol')['market_cap_circulating'].pct_change(periods=30)
+/Users/mitch/Downloads/dex-valuation-study/src/preprocessing.py:209: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  df.groupby('protocol')['tvl_market_share'].pct_change(periods=7)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+Building panel from APIs...
+Validating panel...
+Engineering features...
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:178: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
+  X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+/Users/mitch/Downloads/dex-valuation-study/run_pipeline.py:179: FutureWarning: DataFrame.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  X = X.fillna(method='ffill').fillna(0.0)

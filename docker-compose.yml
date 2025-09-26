@@ -1,0 +1,158 @@
+version: '3.8'
+
+services:
+  # Main Claude test harness service
+  claude-harness:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dex-claude-harness:latest
+    container_name: dex-claude-harness
+    ports:
+      - "8888:8888"  # Jupyter notebook
+    volumes:
+      - .:/app
+      - jupyter-data:/root/.jupyter
+      - test-results:/app/tests/generated
+      - patches:/app/patches
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PYTHONPATH=/app
+      - JUPYTER_ENABLE_LAB=yes
+    healthcheck:
+      test: ["CMD", "python", "-c", "import pandas, numpy, sklearn, pytest, anthropic; print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - dex-network
+    restart: unless-stopped
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+  # Dedicated test runner service
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dex-claude-harness:latest
+    container_name: dex-test-runner
+    volumes:
+      - .:/app
+      - test-results:/app/tests/generated
+      - patches:/app/patches
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PYTHONPATH=/app
+    command: >
+      bash -c "
+        echo 'Waiting for harness to be ready...';
+        sleep 10;
+        echo 'Running test suite...';
+        pytest tests/ -v --cov=src --cov-report=html --cov-report=term;
+        echo 'Tests complete!';
+      "
+    depends_on:
+      claude-harness:
+        condition: service_healthy
+    networks:
+      - dex-network
+    profiles:
+      - test
+
+  # Performance monitoring service
+  performance-monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dex-claude-harness:latest
+    container_name: dex-perf-monitor
+    volumes:
+      - .:/app
+      - perf-results:/app/performance
+    environment:
+      - PYTHONPATH=/app
+    command: >
+      bash -c "
+        while true; do
+          python -c '
+          import time
+          import json
+          import psutil
+          import datetime
+
+          stats = {
+              \"timestamp\": datetime.datetime.now().isoformat(),
+              \"cpu_percent\": psutil.cpu_percent(interval=1),
+              \"memory_percent\": psutil.virtual_memory().percent,
+              \"disk_usage\": psutil.disk_usage(\"/\").percent
+          }
+
+          with open(\"/app/performance/stats.jsonl\", \"a\") as f:
+              f.write(json.dumps(stats) + \"\\n\")
+          ';
+          sleep 30;
+        done
+      "
+    networks:
+      - dex-network
+    profiles:
+      - monitoring
+
+  # Documentation server (optional)
+  docs-server:
+    image: nginx:alpine
+    container_name: dex-docs
+    ports:
+      - "8080:80"
+    volumes:
+      - ./notebooks:/usr/share/nginx/html/notebooks:ro
+      - ./results:/usr/share/nginx/html/results:ro
+      - ./htmlcov:/usr/share/nginx/html/coverage:ro
+    networks:
+      - dex-network
+    profiles:
+      - docs
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Redis cache for test results (optional)
+  cache:
+    image: redis:7-alpine
+    container_name: dex-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - dex-network
+    profiles:
+      - cache
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+# Networks
+networks:
+  dex-network:
+    driver: bridge
+    name: dex-network
+
+# Volumes for persistent data
+volumes:
+  jupyter-data:
+    name: dex-jupyter-data
+  test-results:
+    name: dex-test-results
+  patches:
+    name: dex-patches
+  perf-results:
+    name: dex-perf-results
+  cache-data:
+    name: dex-cache-data

@@ -2,23 +2,74 @@
 # Fill in each protocol with relevant addresses and identifiers
 protocols:
   - name: Uniswap
-    token_address: "0x..."
+    token_address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984"
     snapshot_space: "uniswap"
-    chains: [ethereum, polygon]
+    chains: [ethereum, polygon, arbitrum, optimism, base]
   - name: SushiSwap
-    token_address: "0x..."
+    token_address: "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"
     snapshot_space: "sushiswap"
-    chains: [ethereum, arbitrum, polygon]
+    chains: [ethereum, arbitrum, polygon, avalanche, bsc]
   - name: Curve
-    token_address: "0x..."
+    token_address: "0xD533a949740bb3306d119CC777fa900bA034cd52"
     snapshot_space: "curve"
-    chains: [ethereum]
+    chains: [ethereum, polygon, arbitrum, optimism]
   - name: Balancer
-    token_address: "0x..."
+    token_address: "0xba100000625a3754423978a60c9317c58a424e3D"
     snapshot_space: "balancer"
-    chains: [ethereum]
+    chains: [ethereum, polygon, arbitrum]
   - name: PancakeSwap
-    token_address: "0x..."
+    token_address: "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82"
     snapshot_space: "pancakeswap"
-    chains: [bsc]
-  # Add additional protocols as needed
+    chains: [bsc, ethereum, aptos]
+  - name: Maverick Protocol
+    token_address: "0x7448c7456a97769F6cD04F1E83A4a23cCdC46aBD"
+    snapshot_space: "maverick"
+    chains: [ethereum, arbitrum, zksync, base]
+  - name: Native
+    token_address: "0x39AA39c021dfbaE8faC545936693aC917d5E7563"
+    snapshot_space: "native"
+    chains: [ethereum]
+  - name: Tokenlon
+    token_address: "0x0000000000095413afc295d19edeb1ad7b71c952"
+    snapshot_space: "tokenlon"
+    chains: [ethereum]
+  - name: EulerSwap
+    token_address: "0xd9Fcd98c322942075A5C3860693e9f4f03AAE07b"
+    snapshot_space: "euler"
+    chains: [ethereum]
+  - name: 0x
+    token_address: "0xE41d2489571d322189246DaFA5ebDe1F4699F498"
+    snapshot_space: "0x"
+    chains: [ethereum, polygon, avalanche, fantom, optimism, bsc, arbitrum]
+  - name: Ondo Finance
+    token_address: "0xfAbA6f8e4a5E8Ab82F62fe7C39859FA577269BE3"
+    snapshot_space: "ondo"
+    chains: [ethereum]
+  - name: Hashflow
+    token_address: "0xb3999F658C0391d94A37f7FF328F3feC942BcADC"
+    snapshot_space: "hashflow"
+    chains: [ethereum, arbitrum, avalanche, bsc, optimism, polygon]
+  - name: DODO
+    token_address: "0x43Dfc4159D86F3A37A5A4B3D4580b888ad7d4DDd"
+    snapshot_space: "dodo"
+    chains: [ethereum, bsc, polygon, arbitrum]
+  - name: TanX
+    token_address: "N/A"
+    snapshot_space: "tanx"
+    chains: [zksync]
+  - name: Integral
+    token_address: "0xD502F487e1841Fdc805130e13eae80c61186Bc98"
+    snapshot_space: "integral"
+    chains: [ethereum, arbitrum]
+  - name: ShibaSwap
+    token_address: "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE"
+    snapshot_space: "shibaswap"
+    chains: [ethereum, shibarium]
+  - name: Angstrom
+    token_address: "N/A"
+    snapshot_space: "angstrom"
+    chains: [ethereum]
+  - name: AirSwap
+    token_address: "0x27054b13b1B798B345b591a4d22e6562d47eA75a"
+    snapshot_space: "airswap"
+    chains: [ethereum, polygon, avalanche, bsc]

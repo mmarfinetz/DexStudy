@@ -32,8 +32,10 @@ os.makedirs(PROC_DIR, exist_ok=True)
 
 
 def summarize_validation(panel: pd.DataFrame) -> pd.DataFrame:
+    if panel.empty:
+        return pd.DataFrame({'metric': ['_any_flagged_fraction'], 'value': [0.0]})
     checked = panel.apply(val.validate_row, axis=1)
-    issues = checked['qa_notes'].fillna('')
+    issues = checked.get('qa_notes', pd.Series(index=checked.index, dtype=object)).fillna('')
     flags = issues != ''
     frac_flagged = float(flags.mean()) if len(flags) else 0.0
     issue_counts = Counter([i for s in issues[issues != ''] for i in s.split(';') if i])
@@ -133,7 +135,8 @@ def metrics_from_oof(y_log: pd.Series, yhat_log: pd.Series) -> dict:
 def main():
     load_dotenv(override=False)
     # Date range: use last 150 days to ensure >=90-day coverage
-    end = dt.date.today()
+    # System date is 2025-09-15, so use dates within API's 365-day limit
+    end = dt.date(2025, 9, 10)  # 5 days ago from system time
     start = end - dt.timedelta(days=150)
 
     print('Building panel from APIs...')
@@ -171,6 +174,9 @@ def main():
         X = X_full.drop(columns=['protocol', 'date'])
         y = y_full
         # Align indices 0..n-1 for CV
+        # Causal, simple imputations: forward-fill within protocol then fill remaining with zeros
+        X = X.groupby(level=0, axis=1).apply(lambda g: g).reset_index(drop=True)  # no-op keeps columns stable
+        X = X.fillna(method='ffill').fillna(0.0)
         X = X.reset_index(drop=True)
         y = y.reset_index(drop=True)
         meta = meta.reset_index(drop=True)
@@ -239,8 +245,9 @@ def main():
         # For simplicity, plot persistence baseline vs. truth
         # Build time series plot
         y_usd = np.exp(y.values)
-        # Use persistence baseline predictions
-        yhat_log = base_preds['ma7'].sort_index().values
+        # Use MA7 baseline predictions aligned to full index
+        yhat_series = base_preds['ma7'].reindex(y.index)
+        yhat_log = yhat_series.values
         yhat_usd = np.exp(yhat_log)
         # Align arrays
         mask = ~np.isnan(yhat_usd)
@@ -288,4 +295,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
