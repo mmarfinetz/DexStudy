@@ -33,6 +33,16 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
     if 'date' in df.columns:
         df['date'] = pd.to_datetime(df['date'])
 
+    # Convert numeric columns to proper numeric types
+    numeric_cols = [
+        'market_cap_circulating', 'volume_24h', 'fees_24h', 'revenue_24h', 'tvl',
+        'active_users_24h', 'transactions_24h', 'token_holders',
+        'governance_proposals_30d', 'token_distribution', 'chain_deployment', 'token_age_days'
+    ]
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+
     # Sort once for all operations
     df = df.sort_values(['protocol', 'date'])
 

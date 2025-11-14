@@ -135,8 +135,8 @@ def metrics_from_oof(y_log: pd.Series, yhat_log: pd.Series) -> dict:
 def main():
     load_dotenv(override=False)
     # Date range: use last 150 days to ensure >=90-day coverage
-    # System date is 2025-09-15, so use dates within API's 365-day limit
-    end = dt.date(2025, 9, 10)  # 5 days ago from system time
+    # Use current date and go back 150 days
+    end = dt.date.today()
     start = end - dt.timedelta(days=150)
 
     print('Building panel from APIs...')
