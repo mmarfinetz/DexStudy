@@ -1,0 +1,11 @@
+protocol,model,best_params_last_fold
+Balancer,ElasticNet,"{""est__alpha"": 0.001, ""est__l1_ratio"": 0.1}"
+Balancer,RandomForest,"{""max_depth"": 10, ""min_samples_split"": 2, ""n_estimators"": 100}"
+Curve,ElasticNet,"{""est__alpha"": 0.01, ""est__l1_ratio"": 0.9}"
+Curve,RandomForest,"{""max_depth"": 5, ""min_samples_split"": 2, ""n_estimators"": 100}"
+PancakeSwap,ElasticNet,"{""est__alpha"": 0.001, ""est__l1_ratio"": 0.1}"
+PancakeSwap,RandomForest,"{""max_depth"": 5, ""min_samples_split"": 2, ""n_estimators"": 100}"
+SushiSwap,ElasticNet,"{""est__alpha"": 0.001, ""est__l1_ratio"": 0.9}"
+SushiSwap,RandomForest,"{""max_depth"": 5, ""min_samples_split"": 2, ""n_estimators"": 200}"
+Uniswap,ElasticNet,"{""est__alpha"": 0.001, ""est__l1_ratio"": 0.1}"
+Uniswap,RandomForest,"{""max_depth"": 20, ""min_samples_split"": 2, ""n_estimators"": 100}"
