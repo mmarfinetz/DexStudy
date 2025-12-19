@@ -36,6 +36,12 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
     # Sort once for all operations
     df = df.sort_values(['protocol', 'date'])
 
+    # Ensure numeric columns are properly typed
+    numeric_cols = ['market_cap_circulating', 'volume_24h', 'fees_24h', 'revenue_24h', 'tvl']
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+
     # 1. LAGGED FEATURES (critical for time series)
     if 'market_cap_circulating' in df.columns:
         for lag in [1, 3, 7, 14, 30]:
