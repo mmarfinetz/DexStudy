@@ -17,8 +17,11 @@ htmlcov/
 
 # Data
 data/raw/
-data/processed/
-results/
+
+# Note: data/processed and results are tracked to show study outputs
+# Uncomment below to ignore them:
+# data/processed/
+# results/
 
 # Jupyter outputs
 **/.ipynb_checkpoints/
